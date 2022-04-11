@@ -1,11 +1,10 @@
 import streamlit as st
 import pandas as pd
 from joblib import load
-import matplotlib.pyplot as plt
 from PIL import Image
 import plotly.express as px
 import plotly.graph_objects as go
-plt.style.use('fivethirtyeight')
+
 
 
 from sklearn.metrics import mean_absolute_error
