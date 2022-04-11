@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 
 
 
-from sklearn.metrics import mean_absolute_error
+#from sklearn.metrics import mean_absolute_error
 
 def app():
     
@@ -132,8 +132,8 @@ def app():
         
         st.plotly_chart(fig, use_container_width=True)
         
-        mean_abs_err = mean_absolute_error(y_true, y_pred)
-        st.write(f'Mean absolute error of the forecast for {prediction_day} is: ${mean_abs_err}$') 
+        #mean_abs_err = mean_absolute_error(y_true, y_pred)
+        #st.write(f'Mean absolute error of the forecast for {prediction_day} is: ${mean_abs_err}$') 
    
 
 

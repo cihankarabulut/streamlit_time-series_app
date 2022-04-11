@@ -4,4 +4,3 @@ plotly
 python-dotenv
 joblib
 Pillow
-sklearn
