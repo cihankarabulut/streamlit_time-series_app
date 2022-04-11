@@ -1,8 +1,6 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 from joblib import load
-import pickle
 import matplotlib.pyplot as plt
 from PIL import Image
 import plotly.express as px
@@ -11,8 +9,6 @@ plt.style.use('fivethirtyeight')
 
 
 from sklearn.metrics import mean_absolute_error
-from skforecast.model_selection import backtesting_forecaster
-
 
 def app():
     

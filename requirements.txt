@@ -3,5 +3,5 @@ streamlit
 plotly
 python-dotenv
 joblib
-PIL
+Pillow
 sklearn
