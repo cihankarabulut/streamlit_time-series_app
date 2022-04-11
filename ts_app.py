@@ -4,15 +4,19 @@ from joblib import load
 from PIL import Image
 import plotly.express as px
 import plotly.graph_objects as go
+from io import BytesIO
+import requests
 
 
 
-#from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_absolute_error
 
 def app():
     
-    with open('data\PJME_hourly.csv') as f:
-        data = pd.read_csv(f)
+    #with open('data\PJME_hourly.csv') as f:
+        #data = pd.read_csv(f)
+    url = 'https://github.com/cihankarabulut/streamlit_time-series_app/blob/master/data/PJME_hourly.csv?raw=true'
+    data  = pd.read_csv(url, sep=",")
         
     data = data.rename(columns={'Datetime':'Time', 'PJME_MW':'Demand'})
     data['Time'] = pd.to_datetime(data['Time'], format='%Y-%m-%d %H:%M:%S')
@@ -32,12 +36,15 @@ def app():
     
 
     if page == 'Homepage':
-        image = Image.open('images\main.jpg')
         
+        
+        url = 'https://github.com/cihankarabulut/streamlit_time-series_app/blob/master/images/main.jpg?raw=true'
+        file = BytesIO(requests.get(url).content) 
+        image = Image.open(file)
         st.image(image)
         st.title('Time Series Forecasting with [Skforecast](https://joaquinamatrodrigo.github.io/skforecast/0.4.3/index.html)')
         st.markdown(""" ### We build a time series forecasting model to predict the hourly energy demand\
-                    for a certain region in the Eastern United States and use this app to showcase our work. The time series data we use is \
+                    for the Eastern United States and use this app to showcase our work. The time series data we use is \
                     [here](https://www.kaggle.com/datasets/robikscube/hourly-energy-consumption). """)
         st.markdown(""" ### This app can be used to:""")                 
                  
@@ -108,7 +115,11 @@ def app():
               
         
     else:
-        forecaster = load('model/forecaster.py')
+        
+        url = 'https://github.com/cihankarabulut/streamlit_time-series_app/blob/master/model/forecaster.py?raw=true'
+        file = BytesIO(requests.get(url).content)
+                
+        forecaster = load(file)
         predictions = forecaster.predict(744) #31days*24 hours which is the number of hours in Dec.
         days = ['Dec ' +str(i) for i in range(1,32)]
         dates = pd.date_range('2017-12-01', '2017-12-31')
@@ -132,8 +143,8 @@ def app():
         
         st.plotly_chart(fig, use_container_width=True)
         
-        #mean_abs_err = mean_absolute_error(y_true, y_pred)
-        #st.write(f'Mean absolute error of the forecast for {prediction_day} is: ${mean_abs_err}$') 
+        mean_abs_err = mean_absolute_error(y_true, y_pred)
+        st.write(f'Mean absolute error of the forecast for {prediction_day} is: ${mean_abs_err}$') 
    
 
 

@@ -3,4 +3,7 @@ streamlit
 plotly
 python-dotenv
 joblib
-Pillow
+pillow
+sklearn
+io
+requests
