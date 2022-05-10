@@ -42,7 +42,7 @@ def app():
         file = BytesIO(requests.get(url).content) 
         image = Image.open(file)
         st.image(image)
-        st.title('Time Series Forecasting with [Skforecast](https://joaquinamatrodrigo.github.io/skforecast/0.4.3/index.html)')
+        st.title('Energy Demand Forecasting with [Skforecast](https://joaquinamatrodrigo.github.io/skforecast/0.4.3/index.html)')
         st.markdown(""" ### We build a time series forecasting model to predict the hourly energy demand\
                     for the Eastern United States and use this app to showcase our work. The time series data we use is \
                     [here](https://www.kaggle.com/datasets/robikscube/hourly-energy-consumption). """)
@@ -50,10 +50,8 @@ def app():
                  
         st.markdown(""" 
                   * get the interactive plot of the time series by choosing **Electricity demand** from the dropdown menu on the sidebar. 
-                  * get the interactive plot of *Monthly*, *Weekly* and *Daily* demand distribution by choosing 
-                  **Demand distribution** from the dropdown menu on the sidebar. 
-                  * get the daily forecast for energy demand using a pretrained model on a test data
-                  by choosing **Daily forecast** from the dropdown menu on the sidebar.""") 
+                  * get the interactive plot of *Monthly*, *Weekly* and *Daily* demand distribution by choosing **Demand distribution** from the dropdown menu on the sidebar. 
+                  * get the daily forecast for energy demand using a pretrained model on a test data by choosing **Daily forecast** from the dropdown menu on the sidebar.""") 
         
                                         
         
@@ -129,8 +127,8 @@ def app():
         forecast = predictions[forecast_date:forecast_date]
         
         st.markdown(""" Here we use a model built using `skforecast`'s `ForecasterAutoreg` class which 
-                    uses Ridge regression and a time window of 24 lags. This means that the model uses the 
-                    previous 24 hours as predictors. The model is trained on the data 
+                    uses Ridge regression and a time window of size 145 with lags = [1, 2, 3, 23, 24, 25, 47, 48, 49, 71, 72, 73,95,96,97,119,120,121, 143,144,145]. This means that the model uses the 
+                    values of the time series at these time periods as predictors. The model is trained on the data 
                     between the dates *2015-01-01 00:00:00* and *2017-12-31 23:00:00*. The trained model
                     can be used to generate daily energy forecast for the month of December which is the test data.""")
         
